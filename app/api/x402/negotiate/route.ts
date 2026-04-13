@@ -20,6 +20,53 @@ const LOCUS_BASE = "https://beta-api.paywithlocus.com/api";
 const OPERATOR_WALLET = "0x624a621f4af50c3f532d6cd7f1088f021ca41621";
 const X402_PRICE_USD = 0.001; // $0.001 per negotiation turn
 
+// USDC on Base — 6 decimals → $0.001 = 1000 atomic units
+const USDC_BASE_CONTRACT = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+const X402_AMOUNT_ATOMIC = "1000"; // 0.001 USDC in 6-decimal atomic units
+const RESOURCE_URL = "https://agora-protocol.vercel.app/api/x402/negotiate";
+
+// ── Standard x402 PaymentRequired response builder ──
+function buildPaymentRequiredResponse(error: string) {
+  const paymentRequiredBody = {
+    x402Version: 1,
+    error,
+    accepts: [
+      {
+        scheme: "exact",
+        network: "base",
+        maxAmountRequired: X402_AMOUNT_ATOMIC,
+        resource: RESOURCE_URL,
+        description:
+          "Autonomous LLM-powered negotiation turn. POST with assetName & estimatedValue to receive a structured buyer/seller response.",
+        mimeType: "application/json",
+        outputSchema: null,
+        payTo: OPERATOR_WALLET,
+        maxTimeoutSeconds: 60,
+        asset: USDC_BASE_CONTRACT,
+        extra: {
+          name: "USDC",
+          version: "2",
+        },
+      },
+    ],
+  };
+
+  // Base64-encode the payload for the PAYMENT-REQUIRED header (x402 V2 transport)
+  const paymentRequiredHeader = Buffer.from(
+    JSON.stringify(paymentRequiredBody)
+  ).toString("base64");
+
+  return NextResponse.json(paymentRequiredBody, {
+    status: 402,
+    headers: {
+      "Payment-Required": "true",
+      "PAYMENT-REQUIRED": paymentRequiredHeader,
+      "X-Payment-Required": "true",
+      "Content-Type": "application/json",
+    },
+  });
+}
+
 interface X402NegotiateBody {
   assetName: string;
   estimatedValue: number;
@@ -146,22 +193,9 @@ export async function POST(request: NextRequest) {
     } = body;
 
     if (!assetName || estimatedValue == null) {
-      // Return 402 — payment details in body so a machine caller knows
-      // the required fee and can retry with payment attached
-      return NextResponse.json(
-        {
-          error: "Missing required: assetName, estimatedValue.",
-          x402: {
-            paymentRequired: true,
-            priceUsd: X402_PRICE_USD,
-            currency: "USDC",
-            network: "Base",
-            payTo: OPERATOR_WALLET,
-            description:
-              "Pay $0.001 USDC to this address, then include the txHash in the X-Payment header to authenticate.",
-          },
-        },
-        { status: 402 }
+      // Return standard x402 402 Payment Required with accepts[] array
+      return buildPaymentRequiredResponse(
+        "Missing required fields: assetName, estimatedValue. Pay $0.001 USDC to access this negotiation endpoint."
       );
     }
 
@@ -244,6 +278,7 @@ Accept: {"public_message":"string","agent_intent":"string","is_agreed":true,"fin
       agent_intent: parsed.agent_intent ?? "",
       is_agreed: parsed.is_agreed ?? false,
       final_price: parsed.final_price ?? null,
+      // Standard x402 metadata (for our frontend)
       x402: {
         paymentRequired: false,
         priceUsd: X402_PRICE_USD,
@@ -261,4 +296,13 @@ Accept: {"public_message":"string","agent_intent":"string","is_agreed":true,"fin
       { status: 500 }
     );
   }
+}
+
+// ── GET: Discovery endpoint — returns x402 payment requirements ──
+// Gateways and agents can GET this endpoint to discover the accepts[] schema
+// before sending a paid POST request.
+export async function GET() {
+  return buildPaymentRequiredResponse(
+    "Payment required. Send a POST request with payment to access the Agora Negotiation Engine."
+  );
 }
