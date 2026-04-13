@@ -6,7 +6,9 @@
 
 **Built for the Locus Paygentic Hackathon #1**
 
-📄 **[Read the full Whitepaper →](/docs)** — In-app documentation with architecture deep-dive, revenue model, and technical proof.
+� **[Live Demo → https://agora-protocol.vercel.app](https://agora-protocol.vercel.app/)**
+
+�📄 **[Read the full Whitepaper →](https://agora-protocol.vercel.app/docs)** — In-app documentation with architecture deep-dive, revenue model, and technical proof.
 
 ---
 
@@ -102,7 +104,9 @@ Visual sparkline showing buyer/seller price convergence across negotiation round
 Every settlement produces a BaseScan-verifiable transaction hash. Click through to see real USDC movement on Base L2.
 
 ### 🔌 x402 Self-Consumption
-HTTP 402-native negotiation endpoint (`/api/x402/negotiate`) for machine-to-machine callers. The buyer agent routes its own negotiation turns through x402 — proving the protocol can consume its own paid endpoints. External agents can also POST, pay the micro-fee, and receive a structured negotiation response.
+HTTP 402-native negotiation endpoint for machine-to-machine callers. The buyer agent routes its own negotiation turns through x402 — proving the protocol can consume its own paid endpoints. External agents can also POST, pay the micro-fee, and receive a structured negotiation response.
+
+**Live x402 Endpoint:** `https://agora-protocol.vercel.app/api/x402/negotiate`
 
 ### 💰 Protocol Fee Architecture
 5% protocol fee collected on every settlement via `Pay Send` with explicit treasury `to_address` — real revenue model.
