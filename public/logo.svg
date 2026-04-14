@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ff88"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+    <filter id="neon">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Outer hexagonal frame -->
+  <polygon points="256,32 460,144 460,368 256,480 52,368 52,144" stroke="url(#glow)" stroke-width="6" fill="none" filter="url(#neon)" opacity="0.6"/>
+  <!-- Inner hexagonal frame -->
+  <polygon points="256,80 420,172 420,340 256,432 92,340 92,172" stroke="#00ff88" stroke-width="3" fill="none" opacity="0.3"/>
+  <!-- Abstract 'A' letterform -->
+  <path d="M256 120 L160 380 L192 380 L216 308 L296 308 L320 380 L352 380 L256 120Z M232 272 L256 196 L280 272Z" fill="url(#glow)" filter="url(#neon)"/>
+  <!-- Central node dot -->
+  <circle cx="256" cy="256" r="8" fill="#00ff88" opacity="0.9">
+    <animate attributeName="r" values="6;10;6" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Network connection lines radiating from center -->
+  <line x1="256" y1="248" x2="256" y2="196" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/>
+  <line x1="263" y1="260" x2="320" y2="290" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/>
+  <line x1="249" y1="260" x2="192" y2="290" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/>
+  <!-- Satellite nodes -->
+  <circle cx="320" cy="290" r="4" fill="#00d4ff" opacity="0.6"/>
+  <circle cx="192" cy="290" r="4" fill="#00d4ff" opacity="0.6"/>
+</svg>

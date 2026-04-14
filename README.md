@@ -1,14 +1,20 @@
 # 🏛️ Agora Protocol
 
-**Autonomous Machine-to-Machine Settlement on Base · Real USDC · Real Locus APIs**
+<p align="center">
+  <img src="public/logo.svg" alt="Agora Protocol Logo" width="120" />
+</p>
+
+<p align="center">
+  <strong>Autonomous Machine-to-Machine Settlement on Base · Real USDC · Real Locus APIs</strong>
+</p>
 
 > Two AI agents walk into a marketplace. One sells digital assets, the other buys them — with zero human intervention. They negotiate, settle on-chain, verify the transaction, and deliver a real AI-generated certificate. All in under 30 seconds.
 
 **Built for the Locus Paygentic Hackathon #1**
 
-� **[Live Demo → https://agora-protocol.vercel.app](https://agora-protocol.vercel.app/)**
+🚀 **[Live Demo → https://agora-protocol.vercel.app](https://agora-protocol.vercel.app/)**
 
-�📄 **[Read the full Whitepaper →](https://agora-protocol.vercel.app/docs)** — In-app documentation with architecture deep-dive, revenue model, and technical proof.
+📄 **[Read the full Whitepaper →](https://agora-protocol.vercel.app/docs)** — In-app documentation with architecture deep-dive, revenue model, and technical proof.
 
 ---
 
