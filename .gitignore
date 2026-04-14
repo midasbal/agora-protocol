@@ -61,3 +61,6 @@ Thumbs.db
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# project context (internal only)
+locus-context.md
