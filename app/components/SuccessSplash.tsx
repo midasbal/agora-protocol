@@ -91,6 +91,16 @@ export default function SuccessSplash({
                   >
                     {txHash}
                   </a>
+                ) : txHash.startsWith("locus-payment-") ? (
+                  <a
+                    href={`https://basescan.org/address/0x624a621f4af50c3f532d6cd7f1088f021ca41621`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {txHash} ↗
+                  </a>
                 ) : (
                   txHash
                 )}

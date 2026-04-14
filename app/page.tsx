@@ -2384,6 +2384,16 @@ export default function Home() {
                             >
                               {trade.txHash.slice(0, 6)}...{trade.txHash.slice(-4)} ↗
                             </a>
+                          ) : trade.txHash && trade.txHash.startsWith("locus-payment-") ? (
+                            <a
+                              href={`https://basescan.org/address/0x624a621f4af50c3f532d6cd7f1088f021ca41621`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-neon-blue/70 hover:text-neon-blue hover:underline transition-colors"
+                              title={`Locus Payment: ${trade.txHash}`}
+                            >
+                              {trade.txHash.slice(0, 18)}… ↗
+                            </a>
                           ) : (
                             <span className="text-neon-green/20">{trade.txHash ? trade.txHash.slice(0, 12) + "..." : "—"}</span>
                           )}

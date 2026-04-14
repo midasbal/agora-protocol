@@ -71,6 +71,16 @@ export default function AuditLedger({ entries }: AuditLedgerProps) {
                       >
                         {entry.txHash.slice(0, 6)}...{entry.txHash.slice(-4)}
                       </a>
+                    ) : entry.txHash.startsWith("locus-payment-") ? (
+                      <a
+                        href={`https://basescan.org/address/0x624a621f4af50c3f532d6cd7f1088f021ca41621`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-neon-blue/70 hover:text-neon-blue hover:underline transition-colors"
+                        title={`Locus Payment: ${entry.txHash}`}
+                      >
+                        {entry.txHash.slice(0, 18)}… ↗
+                      </a>
                     ) : (
                       <span className="text-neon-green/30" title={entry.txHash}>
                         {entry.txHash.slice(0, 16)}...
