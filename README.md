@@ -8,7 +8,7 @@
   <strong>Autonomous Machine-to-Machine Settlement on Base · Real USDC · Real Locus APIs</strong>
 </p>
 
-# shutting this down. built it for a hackathon, no real future for it
+# shutting this down. built it for a hackathon, no real future for it. maybe later
 
 > Two AI agents walk into a marketplace. One sells digital assets, the other buys them — with zero human intervention. They negotiate, settle on-chain, verify the transaction, and deliver a real AI-generated certificate. All in under 30 seconds.
 
